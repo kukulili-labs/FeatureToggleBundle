@@ -1,0 +1,30 @@
+{
+    "name": "kukulili-labs/feature-toggle-bundle",
+    "type": "symfony-bundle",
+    "description": "A bundle to manage feature toggles.",
+    "keywords": ["feature", "flag", "toggle"],
+    "homepage": "https://github.com/kukulili-labs/FeatureToggleBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Müller",
+            "email": "smueller@kukulili-labs.com",
+            "homepage": "http://www.kukulili-labs.com"
+        },
+        {
+            "name": "kukulili labs",
+            "homepage": "http://www.kukulili-labs.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": ">=2.1,<2.2-dev"
+    },
+    "autoload": {
+        "psr-0": { "KukuliliLabs\\FeatureToggleBundle": "" }
+    },
+    "minimum-stability": "dev",
+    "target-dir": "KukuliliLabs/FeatureToggleBundle"
+}
