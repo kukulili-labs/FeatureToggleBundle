@@ -46,6 +46,6 @@ class FeatureToggleExtension extends Extension
 
     public function getAlias()
     {
-        return 'kl_feature_toggle';
+        return 'kukulili_labs_feature_toggle';
     }
 }

@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('kl_feature_toggle');
+        $rootNode = $treeBuilder->root('kukulili_labs_feature_toggle');
 
         $rootNode
             ->children()

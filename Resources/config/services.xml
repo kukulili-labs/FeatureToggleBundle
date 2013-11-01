@@ -5,18 +5,18 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="kl_feature_toggle.feature_toggles.class">KukuliliLabs\FeatureToggleBundle\FeatureToggle\FeatureToggleService</parameter>
-        <parameter key="kl_feature_toggle.twig.feature_toggle_extension.class">KukuliliLabs\FeatureToggleBundle\Twig\FeatureToggleExtension</parameter>
+        <parameter key="kukulili_labs_feature_toggle.feature_toggles.class">KukuliliLabs\FeatureToggleBundle\FeatureToggle\FeatureToggleService</parameter>
+        <parameter key="kukulili_labs_feature_toggle.twig.feature_toggle_extension.class">KukuliliLabs\FeatureToggleBundle\Twig\FeatureToggleExtension</parameter>
     </parameters>
 
     <services>
-        <service id="kl_feature_toggle.feature_toggles" class="%kl_feature_toggle.feature_toggles.class%">
-            <argument>%kl_feature_toggle.feature_toggles%</argument>
+        <service id="kukulili_labs_feature_toggle.feature_toggles" class="%kukulili_labs_feature_toggle.feature_toggles.class%">
+            <argument>%kukulili_labs_feature_toggle.feature_toggles%</argument>
         </service>
 
-        <service id="kl_feature_toggle.twig.feature_toggle_extension" class="%kl_feature_toggle.twig.feature_toggle_extension.class%">
+        <service id="kukulili_labs_feature_toggle.twig.feature_toggle_extension" class="%kukulili_labs_feature_toggle.twig.feature_toggle_extension.class%">
             <tag name="twig.extension" />
-            <argument type="service" id="kl_feature_toggle.feature_toggles" on-invalid="null"/>
+            <argument type="service" id="kukulili_labs_feature_toggle.feature_toggles" on-invalid="null"/>
         </service>
     </services>
 </container>

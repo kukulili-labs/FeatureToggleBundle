@@ -25,8 +25,7 @@ class FeatureToggleExtensionTest extends \PHPUnit_Framework_TestCase
         $loader = new FeatureToggleExtension();
         $config = $this->getFullConfig();
         $loader->load(array($config), $this->configuration);
-        $this->assertNotHasDefinition('kl_feature_toggle.feature_toggles.feature_toggle_enabled');
-        $this->assertNotHasDefinition('kl_feature_toggle.feature_toggles.feature_toggle_disabled');
+        $this->assertHasDefinition('kukulili_labs_feature_toggle.feature_toggles');
     }
 
     /**
@@ -63,9 +62,9 @@ EOF;
     /**
      * @param string $id
      */
-    private function assertNotHasDefinition($id)
+    private function assertHasDefinition($id)
     {
-        $this->assertFalse(($this->configuration->hasDefinition($id) ? : $this->configuration->hasAlias($id)));
+        $this->assertTrue(($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id)));
     }
 
     protected function tearDown()
