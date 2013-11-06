@@ -12,6 +12,7 @@
     <services>
         <service id="kukulili_labs_feature_toggle.feature_toggles" class="%kukulili_labs_feature_toggle.feature_toggles.class%">
             <argument>%kukulili_labs_feature_toggle.feature_toggles%</argument>
+            <argument type="service" id="session" />
         </service>
 
         <service id="kukulili_labs_feature_toggle.twig.feature_toggle_extension" class="%kukulili_labs_feature_toggle.twig.feature_toggle_extension.class%">

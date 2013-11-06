@@ -10,18 +10,28 @@
 
 namespace KukuliliLabs\FeatureToggleBundle\FeatureToggle;
 
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class FeatureToggleService
 {
+    const SESSION_PREFIX = 'feature_toggle.';
+
+    protected $session;
     protected $features = array();
 
     /**
      * @param array $features
+     * @param Session $session
      */
-    public function __construct($features)
+    public function __construct(array $features, Session $session)
     {
-        foreach ($features as $name => $featureToggleConfig) {
-            $this->features[$name] = new FeatureToggle($name, $featureToggleConfig['state'], $featureToggleConfig['description']);
+        $this->session = $session;
+        foreach ($features as $featureToggleName => $featureToggleConfig) {
+            if ($this->session->has(self::SESSION_PREFIX . $featureToggleName)) {
+                $this->features[$featureToggleName] = $this->session->get(self::SESSION_PREFIX . $featureToggleName);
+            } else {
+                $this->features[$featureToggleName] = new FeatureToggle($featureToggleName, $featureToggleConfig['state'], $featureToggleConfig['description']);
+            }
         }
     }
 
@@ -43,7 +53,13 @@ class FeatureToggleService
      */
     public function getFeature($featureToggleName)
     {
-        return isset($this->features[$featureToggleName]) ? $this->features[$featureToggleName] : null;
+        if (isset($this->features[$featureToggleName])) {
+            if ($this->session->has(self::SESSION_PREFIX . $featureToggleName)) {
+                $this->features[$featureToggleName] = $this->session->get(self::SESSION_PREFIX . $featureToggleName);
+            }
+            return $this->features[$featureToggleName];
+        }
+        return null;
     }
 
     /**
@@ -63,34 +79,36 @@ class FeatureToggleService
     }
 
     /**
-     * Enables a FeatureToggle
+     * Enables a FeatureToggle for the active session
      *
      * @param $featureToggleName
      * @return FeatureToggle
      */
-    public function enable($featureToggleName)
+    public function enableForSession($featureToggleName)
     {
         $featureToggle = $this->getFeature($featureToggleName);
         if ($featureToggle == null) {
             return null;
         }
         $featureToggle->setState(FeatureToggle::STATE_ENABLED);
+        $this->session->set(self::SESSION_PREFIX . $featureToggleName, $featureToggle);
         return $featureToggle;
     }
 
     /**
-     * Disables a FeatureToggle
+     * Disables a FeatureToggle for the active session
      *
      * @param $featureToggleName
      * @return FeatureToggle
      */
-    public function disable($featureToggleName)
+    public function disableForSession($featureToggleName)
     {
         $featureToggle = $this->getFeature($featureToggleName);
         if ($featureToggle == null) {
             return null;
         }
         $featureToggle->setState(FeatureToggle::STATE_DISABLED);
+        $this->session->set(self::SESSION_PREFIX . $featureToggleName, $featureToggle);
         return $featureToggle;
     }
 

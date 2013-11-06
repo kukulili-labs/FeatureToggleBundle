@@ -12,27 +12,18 @@ namespace KukuliliLabs\FeatureToggleBundle\Tests\Twig;
 
 use KukuliliLabs\FeatureToggleBundle\FeatureToggle\FeatureToggle;
 use KukuliliLabs\FeatureToggleBundle\FeatureToggle\FeatureToggleService;
+use KukuliliLabs\FeatureToggleBundle\Tests\FeatureToggleServiceTestCase;
 use KukuliliLabs\FeatureToggleBundle\Twig\FeatureToggleExtension;
 
-class FeatureToggleExtensionTest extends \PHPUnit_Framework_TestCase
+class FeatureToggleExtensionTest extends FeatureToggleServiceTestCase
 {
     /** @var FeatureToggleExtension */
     protected $extension;
 
     public function setUp()
     {
-        $this->extension = new FeatureToggleExtension($this->getFeatureToggleService(array(
-            'features' => array(
-                'feature_toggle_enabled' => array(
-                    'state' => FeatureToggle::STATE_ENABLED,
-                    'description' => 'This is a enabled feature toggle'
-                ),
-                'feature_toggle_disabled' => array(
-                    'state' => FeatureToggle::STATE_DISABLED,
-                    'description' => 'This is a disabled feature toggle'
-                )
-            )
-        )));
+        parent::setUp();
+        $this->extension = new FeatureToggleExtension($this->featureToggleService);
     }
 
     public function testIsFeatureToggleEnabled()
@@ -50,14 +41,19 @@ class FeatureToggleExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->extension->isFeatureToggleEnabled('wrong_feature_toggle'));
     }
 
-    /**
-     * @param array $args
-     * @return FeatureToggleService
-     */
-    private function getFeatureToggleService(array $args)
+    public function testIsFeatureToggleDisabledForSession()
     {
-        return $this->getMockBuilder('KukuliliLabs\FeatureToggleBundle\FeatureToggle\FeatureToggleService')
-            ->setConstructorArgs($args)
-            ->getMockForAbstractClass();
+        $newFeatureToggleService = $this->getFeatureToggleService($this->getFeatures(), $this->session);
+        $newFeatureToggleService->disableForSession('feature_toggle_enabled');
+
+        $this->assertFalse($this->extension->isFeatureToggleEnabled('feature_toggle_enabled'));
+    }
+
+    public function testIsFeatureToggleEnabledForSession()
+    {
+        $newFeatureToggleService = $this->getFeatureToggleService($this->getFeatures(), $this->session);
+        $newFeatureToggleService->enableForSession('feature_toggle_disabled');
+
+        $this->assertTrue($this->extension->isFeatureToggleEnabled('feature_toggle_disabled'));
     }
 }
