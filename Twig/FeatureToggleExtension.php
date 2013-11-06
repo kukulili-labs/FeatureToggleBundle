@@ -44,10 +44,7 @@ class FeatureToggleExtension extends \Twig_Extension
      */
     public function isFeatureToggleEnabled($featureToggleName)
     {
-        if ($this->featureToggleService) {
-            return $this->featureToggleService->isEnabled($featureToggleName);
-        }
-        return false;
+        return $this->featureToggleService->isEnabled($featureToggleName);
     }
 
     /**
