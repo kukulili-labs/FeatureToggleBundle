@@ -28,5 +28,10 @@
     "autoload": {
         "psr-0": { "KukuliliLabs\\FeatureToggleBundle": "" }
     },
-    "target-dir": "KukuliliLabs/FeatureToggleBundle"
+    "target-dir": "KukuliliLabs/FeatureToggleBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
 }
