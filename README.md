@@ -5,7 +5,7 @@ A bundle to manage feature toggles.
 This Bundle is inspired by the [SoclozFeatureFlagBundle](https://github.com/SoCloz/SoclozFeatureFlagBundle).
 
 
-[![Build Status](https://travis-ci.org/kukulili-labs/FeatureToggleBundle.png?branch=master)](https://travis-ci.org/kukulili-labs/FeatureToggleBundle)
+[![Build Status](https://travis-ci.org/kukulili-labs/FeatureToggleBundle.png?branch=master)](https://travis-ci.org/kukulili-labs/FeatureToggleBundle) [![Dependency Status](https://www.versioneye.com/user/projects/528346d3632bacf1f9000118/badge.png)](https://www.versioneye.com/user/projects/528346d3632bacf1f9000118)
 
 
 ## Installation
